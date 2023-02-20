@@ -9,6 +9,12 @@
      - config > urls.py  > urlpatterns 에서 django 가 처리할 수 있는 url 나타냄
       - 앱 단위로 url을 분리하여 관리하는 것을 권장
     - settings 내에서 두가지를 수정
-      - settings > LANGUAGE_CODE = 'ko-kr
+      - settings > LANGUAGE_CODE = 'ko-kr'
       - settings > TIME_ZONE = 'Asia/Seoul'
-2. 
+2. [2_Django_DB](./2_Django_DB/)
+   - 데이터 베이스 연동하기🛍
+   - SQLite 를 이용하여 연동
+   - python manage.py migrate 를 이용하여 migrate
+   - python manage.py createsuperuser 를 이용하여 superuser 생성
+   - admin 로그인 및 접속 가능
+3. 
