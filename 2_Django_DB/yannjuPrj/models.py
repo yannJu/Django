@@ -7,8 +7,14 @@ class Question(models.Model):
     content = models.TextField()
     create_date =  models.DateTimeField()
     
+    def __str__(self):
+        return self.subject
+    
 class Answer(models.Model):
     # ForeignKey(참조테이블, 참조조건)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     content = models.TextField()
     create_date = models.DateTimeField()
+    
+    def __str__(self):
+        return self.question
