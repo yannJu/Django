@@ -37,6 +37,6 @@
    - 연관된 데이터 ORM으로 편리하게 관리
      - *1:1, 1:N, N:M*,  . . 여러 관계 유형
      - **JOIN**  필요없이 ORM 이 자동으로 해줌
-      ![join](../img/2_img(4).JPG)
+     - ![join](../img/2_img(4).JPG)
      - `question = q1` 의 q1는 전체 데이터가 아닌 **q1.id**가 들어가게 된다.
-      ![joinDB](../img/2_img(5).JPG) 
+     - ![joinDB](../img/2_img(5).JPG) 
