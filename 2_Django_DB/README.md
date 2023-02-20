@@ -7,9 +7,9 @@
      - 클래스로서 정의
      - 클래스명을 Table 명으로 Mapping 가능
      - 데이터 조작 또한 메소드를 통해 이루어짐
-     - *[models.py](./2_Django_DB/yannjuPrj/models.py)* : DB 질문모델 작성 (즉, 클래스정의)
+     - *[models.py](./yannjuPrj/models.py)* : DB 질문모델 작성 (즉, 클래스정의)
    - "Migration" → 클래스로 정의한 모델을 DB로 반영시킴
-     - python manage.py **makemigrations** > *[0001_initial.py](./2_Django_DB/yannjuPrj/migrations/0001_initial.py)* 생성 : **아직 DB반영 안됨**
-     - *[0001_initial.py](./2_Django_DB/yannjuPrj/migrations/0001_initial.py)*을 토대로 DB에 반영(**migrate** 명령어 사용)
-     - ![migrateImg](./img/2_img.JPG)
+     - python manage.py **makemigrations** > *[0001_initial.py](./yannjuPrj/migrations/0001_initial.py)* 생성 : **아직 DB반영 안됨**
+     - *[0001_initial.py](./yannjuPrj/migrations/0001_initial.py)*을 토대로 DB에 반영(**migrate** 명령어 사용)
+     - ![migrateImg](../img/2_img.JPG)
      - django_migrations 를 통해 history를 확인
