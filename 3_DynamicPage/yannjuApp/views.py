@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
+from django.utils import timezone
 
 # Create your views here.
 def index(request):
@@ -16,6 +17,18 @@ def detail(request, question_id):
     '''
     yannjuApp 상세 출력
     '''
-    question = Question.objects.get(id = question_id)
+    # question = Question.objects.get(id = question_id)
+    question = get_object_or_404(Question, pk=question_id)
     context = {'question' : question}
     return render(request, 'yannjuApp/question_detail.html', context)
+
+def answer_create(request, question_id):
+    """
+    pybo 답변등록
+    """
+    question = get_object_or_404(Question, pk=question_id)
+    #request.POST['content'] 를 쓸 때 값이 없으면 예외발생
+    #request.POST.get('content') 를 쓸 때 값이 없으면  None 리턴
+    question.answer_set.create(content=request.POST.get('content'), 
+    create_date=timezone.now()) 
+    return redirect('yannjuName:detail', question_id=question.id)

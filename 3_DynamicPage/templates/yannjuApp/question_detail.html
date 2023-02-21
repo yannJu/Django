@@ -5,3 +5,13 @@
 <div>
     {{question.content}}  ≡(▔﹏▔)≡
 </div>
+
+{% comment %} <a href = "{% url 'index' %}">목록보기</a> {% endcomment %}
+<a href = "{% url 'yannjuName:index' %}">목록보기</a> <!--네임스페이스 설정-->
+
+<form action="{% url 'yannjuName:answer_create' question.id %}" method="post">
+{% comment %} <form action="" method="post"> {% endcomment %}
+    {% csrf_token %}
+    <textarea name="content" id="content" rows="15"></textarea>
+    <input type="submit" value="답변등록">
+</form>    
