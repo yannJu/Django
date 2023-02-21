@@ -1,0 +1,11 @@
+<!--question_list : views에서 정의한 컨텍스트 변수-->
+{% if question_list %}
+    <ul>
+        {% for question in question_list %}
+            {% comment %} <li><a href = '{{question.id}}'>{{question.subject}}</a></li> {% endcomment %}
+            <li><a href = "{% url 'yannjuName:detail' question.id %}">{{question.subject}}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>질문이 없습니다 . . ㅎ ㅅ ㅎ</p>
+{% endif %}
