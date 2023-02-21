@@ -17,17 +17,17 @@
   - `{% load static %}` 을 호출하여 이후 예상치 못하게 `static`의 경로가 바뀌는 경우를 대비
     - 따라서 `href`에 마치 *URL별칭*을 달듯 `static` 만을 사용하여 해결
 - ### BootStrap 을 이용하기
-  - 원하는 css 파일을 사용
+  - 원하는 css 파일을 사용(*[./static/bootstrap.min.css](./static/bootstrap.min.css)*)
     ```html
-    <!--tmplates/yannjuApp/question_index.html-->
+    <!--tmplates/yannjuApp/question_list.html-->
     {% load static %} <!--static lib을 사용함을 의미-->
     <link rel = "stylesheet" type = "text/css" href = "{% static 'bootstrap.min.css' %}">
     ``` 
     - `href`를 ` bootstrap.min.css`로 작성
-  - 태그를 통하여 style sheet 적용
+  - 태그를 통하여 style sheet 적용(*[./templates/yannjuApp/question_list.html](./templates/yannjuApp/question_list.html)*)
    
     ```html
-    <!--tmplates/yannjuApp/question_index.html-->
+    <!--tmplates/yannjuApp/question_list.html-->
     <div class = "container my-3">
             <table class = 'table table-hover'>
                 <thead>
