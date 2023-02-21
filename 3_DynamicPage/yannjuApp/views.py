@@ -10,4 +10,4 @@ def index(request):
     question_list = Question.objects.order_by('-create_date')  #내림차순 = 최신글을 위로
     context = {'question_list' : question_list} #key 의 명칭은 템플릿에서 사용할 변수 (= 컨텍스트 변수)
     
-    return render(request, 'yannjuHtml/question_list.html', context)
+    return render(request, 'yannjuApp/question_list.html', context)

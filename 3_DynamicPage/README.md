@@ -6,7 +6,7 @@
      1. [templates](./templates/) 폴더 생성
      2. *[settings.py](./config/settings.py)*  의 TEMPLATES > DIR > `[BASE_DIR/templates]` 폴더 등록
       - 현재 *[settings.py](./config/settings.py)*  > TEMPLATES > `'APP_DIRS': True`, 이므로 App 밑에 *templates* 폴더가 와도 **오류가 나지 않음**!
-    - templates > *[question_list.html](../3_DynamicPage/templates/yannjuHtml/question_list.html)* 를 이용하여 웹 화면을 띄울 수 있음
+    - templates > *[question_list.html](../3_DynamicPage/templates/yannjuApp/question_list.html)* 를 이용하여 웹 화면을 띄울 수 있음
  
     ![htmlImg](../img/3_img(1).png)
     - 
