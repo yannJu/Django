@@ -37,9 +37,9 @@
    - 연관된 데이터 ORM으로 편리하게 관리
      - *1:1, 1:N, N:M*,  . . 여러 관계 유형
      - **JOIN**  필요없이 ORM 이 자동으로 해줌
-      ![join](../img/2_img(4).JPG)
+      - ![join](../img/2_img(4).JPG)
      - `question = q1` 의 q1는 전체 데이터가 아닌 **q1.id**가 들어가게 된다.
-      ![joinDB](../img/2_img(5).JPG) 
+     - ![joinDB](../img/2_img(5).JPG) 
  - **Admin 사이트**에서 데이터 관리
    - *[admin.py](./yannjuPrj/admin.py)* 내에 클래스(테이블)을 import 하여 불러오면 admin 사이트에서 데이터를 추가 가능
    - `admin.ModelAdmin`을 상속받아 `search_files` 변수를 통해 검색 기능을 추가 가능
