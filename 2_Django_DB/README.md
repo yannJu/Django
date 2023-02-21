@@ -40,3 +40,8 @@
       ![join](../img/2_img(4).JPG)
      - `question = q1` 의 q1는 전체 데이터가 아닌 **q1.id**가 들어가게 된다.
       ![joinDB](../img/2_img(5).JPG) 
+ - **Admin 사이트**에서 데이터 관리
+   - *[admin.py](./yannjuPrj/admin.py)* 내에 클래스(테이블)을 import 하여 불러오면 admin 사이트에서 데이터를 추가 가능
+   - `admin.ModelAdmin`을 상속받아 `search_files` 변수를 통해 검색 기능을 추가 가능
+     - list_display, ordering . . 등 여러 다른 변수로 커스텀 가능
+   - ![admin](../img/2_img(6).JPG)
