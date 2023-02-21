@@ -45,3 +45,48 @@
      - 위와같이 작성하면 아래와 같은 결과 도출
       
         ![detailImg](../img/3_img(3).png)
+  - **404 Error** 발생시키기
+    - *[views.py](./yannjuApp/views.py)* 에서 `get_object_or_404` 를 import
+     
+      ``` python
+      get_object_or_404(Question, pk=question_id)
+      ```
+    - 위와 같이 작성할 경우 잘못된 페이지에 접근 시 **오류** 페이지를 보여줌
+     
+       ![404Img](../img/3_img(4).png)
+  - URL **별칭**을 설정 : 사이트 개편이 많은 경우 훨씬 유용하게 작용
+    - *[yannjuApp/urls.py](./yannjuApp/urls.py)* 에서 `name`이라는 속성을 추가
+    - `name` 에 할당된 별칭으로 링크를 가져옴
+     
+      ``` html
+      {% comment %} <li><a href = '{{question.id}}'>{{question.subject}}</a></li> {% endcomment %}
+      <li><a href = "{% url 'detail' question.id %}">{{question.subject}}</a></li>
+      ```
+    - *[config/urls.py](./config/urls.py)* 에서 **url을 변경**하여도 다른 부분에서는 신경쓰지 않아도 됨 → 유연한 작성이 가능
+     
+      ![url별칭](../img/3_img(5).png)
+  -  **네임스페이스** 설정
+     -  앱이 많은 경우 별칭 충돌 가능성
+     -  *[yannjuApp/urls.py](yannjuApp/urls.py)* 에서 `app_name` 변수에 네임스페이스 할당
+       
+        ``` html
+        {% comment %} <a href = "{% url 'index' %}">목록보기</a> {% endcomment %}
+        <a href = "{% url 'yannjuName:index' %}">목록보기</a> <!--네임스페이스 설정-->
+        ```
+   - **Form** 을 통해 입력받기
+     - *Model과* 상당히 유사
+     - **POST** 를 이용하여 data 를 숨기고, 길이에 제한이 없도록 활용 : method의 default 는 `get`
+     - **CSRF**(Cross Site Request Forgery)
+       - django 에서 form을 받음을 *인정*
+       - form 이 없이 변조 시킬 수 있기 때문에 요청을 구분
+       - 정보가 들어오는데 *난수가* 함께 들어오는가, 확인
+        
+          ![csrf](../img/3_img(6).png)
+        - *hidden type*으로 입력되어 난수가 함께 value로 들어옴 
+  - 답변 등록 URL Mapping → *Form* 객체에서 정보 **얻어오기**
+    -  get : `?csrftoken..=XXX&name=입력값 . . ` 과 같이 url에 담김
+    -  `print(request.GET)` 같은 명령어를 사용하여 내용을 확인할 수 있음 
+    -  `answer_set` : 관계 매니저 (**모델명_set** 으로 사용)
+       -  누군가가 Foreign Key를 만들면 자동으로 만들어주고 그와 관련된 *answer에 대한 일을 도와줌*
+       -  shell을 할 때 `question = q`와 같이, *FK를* 전해주지 않아도 된다.
+    -  `create` : *생성 & 저장*을 한번에 해줌
