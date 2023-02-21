@@ -6,6 +6,15 @@
     {{question.content}}  ≡(▔﹏▔)≡
 </div>
 
+<h5>{{question.answer_set.count}}개의 답변이 있습니다.</h5>
+<div>
+    <ul>
+        {% for answer in question.answer_set.all %}
+            <li>{{answer.content}}</li>
+        {% endfor %}
+    </ul>
+</div>
+
 {% comment %} <a href = "{% url 'index' %}">목록보기</a> {% endcomment %}
 <a href = "{% url 'yannjuName:index' %}">목록보기</a> <!--네임스페이스 설정-->
 

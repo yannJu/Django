@@ -13,6 +13,7 @@
     - `{%(명령어)%}` 방식으로 템플릿을 작성 (해당 양식은 서버에서 처리)
      
       ``` html
+        <!--./templates/yannjuApp/question_index.html-->
       {% if question_list %}
       <ul>
         {% for question in question_list %}
@@ -34,6 +35,7 @@
      - *[templates/yannjuApp/question_detail.html](./templates/yannjuApp/question_detail.html)* 템플릿을 생성하여 contents **출력**
 
         ``` html
+        <!--./templates/yannjuApp/question_detail.html-->
         <h1>제목 : {{question.subject}} ~(>_<。)＼</h1>
         <div>
             내용 : 
@@ -59,6 +61,7 @@
     - `name` 에 할당된 별칭으로 링크를 가져옴
      
       ``` html
+      <!--./templates/yannjuApp/question_detail.html-->
       {% comment %} <li><a href = '{{question.id}}'>{{question.subject}}</a></li> {% endcomment %}
       <li><a href = "{% url 'detail' question.id %}">{{question.subject}}</a></li>
       ```
@@ -68,8 +71,10 @@
   -  **네임스페이스** 설정
      -  앱이 많은 경우 별칭 충돌 가능성
      -  *[yannjuApp/urls.py](yannjuApp/urls.py)* 에서 `app_name` 변수에 네임스페이스 할당
+     -  *[question_detail.html](templates/yannjuApp/question_detail.html)* 에서 해당 네임스페이스를 아래와같이 사용
        
         ``` html
+        <!--./templates/yannjuApp/question_detail.html-->
         {% comment %} <a href = "{% url 'index' %}">목록보기</a> {% endcomment %}
         <a href = "{% url 'yannjuName:index' %}">목록보기</a> <!--네임스페이스 설정-->
         ```
@@ -90,3 +95,23 @@
        -  누군가가 Foreign Key를 만들면 자동으로 만들어주고 그와 관련된 *answer에 대한 일을 도와줌*
        -  shell을 할 때 `question = q`와 같이, *FK를* 전해주지 않아도 된다.
     -  `create` : *생성 & 저장*을 한번에 해줌
+    
+        ![답변등록](../img/3_img(7).png)  |![DB](../img/3_img(8).png)
+        --- | --- | 
+  - 답변 등록 목록을 **화면에 표시**
+   
+      ``` html
+      <!--./templates/yannjuApp/question_detail.html-->
+      <h5>{{question.answer_set.count}}개의 답변이 있습니다.</h5>
+      <div>
+          <ul>
+              {% for answer in question.answer_set.all %}
+                  <li>{{answer.content}}</li>
+              {% endfor %}
+          </ul>
+      </div>
+      ``` 
+    - `answer_set.count` 를 통해 현재 `question`과 관련된 `answer`들의 수를 count
+    - `answer_set.all` 을 통해 현재 `question`과 관련된 모든 `answer` 를 가져옴
+     
+      ![답변목록](../img/3_img(9).png)
