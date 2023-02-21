@@ -11,3 +11,11 @@ def index(request):
     context = {'question_list' : question_list} #key 의 명칭은 템플릿에서 사용할 변수 (= 컨텍스트 변수)
     
     return render(request, 'yannjuApp/question_list.html', context)
+
+def detail(request, question_id):
+    '''
+    yannjuApp 상세 출력
+    '''
+    question = Question.objects.get(id = question_id)
+    context = {'question' : question}
+    return render(request, 'yannjuApp/question_detail.html', context)
