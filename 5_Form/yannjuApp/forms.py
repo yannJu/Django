@@ -22,4 +22,4 @@ class QuestionForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
-        fields = ['question', 'content']
+        fields = ['content']
