@@ -1,9 +1,8 @@
 <!--question_list : views에서 정의한 컨텍스트 변수-->
-{% load static %}
-<link rel = "stylesheet" type = "text/css" href = "{% static 'bootstrap.min.css' %}">
+{% extends 'base.html' %}
 
-<div class = "container my-3">
-    <table class = 'table table-hover'>
+{% block content %}
+    <table class = 'table table-hover table-bordered'>
         <thead>
             <tr class = "thead-dark">
                 <th>번호</th>
@@ -28,4 +27,4 @@
             {% endif %}
         </tbody>
     </table>
-</div>
+{% endblock content %}

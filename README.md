@@ -10,4 +10,7 @@
    - 답변 등록 및 답변 표기
 4. [4_StyleSheet](./4_StyleSheet)
    - 웹 페이지 꾸미기🏒 
+   - **bootstrap** 을 이용하여 stylesheet 작성
+   - HTML 상속을 통한 *코드 중복 해결*
+   - **font awesome** 을 이용하여 아이콘 추가
 5. 
