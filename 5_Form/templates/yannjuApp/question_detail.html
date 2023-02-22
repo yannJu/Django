@@ -49,6 +49,17 @@
 <form action="{% url 'yannjuName:answer_create' question.id %}" method="post">
 {% comment %} <form action="" method="post"> {% endcomment %}
     {% csrf_token %}
+    {% if form.errors %}
+    <div class = "alert alert-danger" role = "alert">
+        {% for field in form %}
+            {% if field.errors and field.label == '답변 내용'%}
+                <strong>{{field.label}}</strong>
+                {{field.errors}}
+            {% endif %}
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <div class = "form-group">
         <textarea name="content" id="content" class = 'form-control' rows="8"></textarea>
     </div>

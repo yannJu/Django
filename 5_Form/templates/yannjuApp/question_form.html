@@ -59,10 +59,18 @@
                 <!--에러처리 끝-->
             </div>
 
-            <button type="submit" class = "btn btn-success mt-2">
-            <i class="fa-regular fa-paper-plane"></i>
-            저장하기 (∩^o^)⊃━☆
-            </button>
+            <div>
+                <button type="submit" class = "btn btn-success mt-2">
+                <i class="fa-regular fa-paper-plane"></i>
+                저장하기 (∩^o^)⊃━☆
+                </button>
+            </div>
+
+            <div  class='my-2'>
+                <a href = '{% url 'yannjuName:index' %}'>
+                    목록으로ε=(~￣▽￣)~
+                </a>
+            </div>
         </form>
     </div>
 {% endblock content %}

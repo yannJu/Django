@@ -130,4 +130,17 @@
   - `subject`와 `content` 모두 적용하면 아래와 같음
    
     ![에러이미지2](../img/5_img(4).png)
- - 
+ - 폰트 적용
+   - [fonts.google.com](https://fonts.google.com/) 를 통해 **폰트 설정** 가능
+   - *[./static/style.css](./static/style.css)* 에 선택한 font를 추가
+    
+        ```css
+        @import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+        * {
+        font-family: 'Poor Story', cursive;
+        }
+        ``` 
+    - 폰트를 *select* 하고 `import`코드와 `font-familt` 코드를 **복사**
+    - 아래와 같은 결과를 얻음
+     
+        ![폰트설정](../img/5_img(5).png) 

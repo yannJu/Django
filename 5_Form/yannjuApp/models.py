@@ -13,7 +13,7 @@ class Question(models.Model):
 class Answer(models.Model):
     # ForeignKey(참조테이블, 참조조건)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    content = models.TextField()
+    content = models.TextField('답변 내용')
     create_date = models.DateTimeField()
     
     def __str__(self):

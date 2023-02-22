@@ -1,5 +1,5 @@
 from django import forms
-from yannjuApp.models import Question
+from .models import Question, Answer
 
 class QuestionForm(forms.ModelForm):
     #Model에 대한것을 입력받아야하므로 Model에 대해 맞추겠다
@@ -18,3 +18,8 @@ class QuestionForm(forms.ModelForm):
         #     'subject' : '제목',
         #     'content' : '내용',
         # }
+        
+class AnswerForm(forms.ModelForm):
+    class Meta:
+        model = Answer
+        fields = ['question', 'content']

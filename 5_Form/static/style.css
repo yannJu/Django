@@ -1,7 +1,4 @@
-textarea { /* 부모태그 */
-    width : 50%;
-}
-
-input[type=submit] { /* [] 내부는 속성선택자, type=submit 인 속성 */
-    margin-left : 10px;
+@import url('https://fonts.googleapis.com/css2?family=Poor+Story&display=swap');
+* {
+    font-family: 'Poor Story', cursive;
 }

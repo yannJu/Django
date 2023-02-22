@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
 from django.utils import timezone
-from .forms import QuestionForm
+from .forms import QuestionForm, AnswerForm
 
 # Create your views here.
 def index(request):
@@ -45,4 +45,24 @@ def question_create(request):
             return redirect('yannjuName:index')
     else: #GET 요청이라면 -> 질문등록버튼
         form = QuestionForm() #비어있는 데이터
-    return render(request, 'yannjuApp/question_form.html', {'form':form})
+    context = {'form':form}
+    return render(request, 'yannjuApp/question_form.html', context)
+
+def answer_create(request, question_id):
+    """
+    yannjuApp 답변 등록
+    """
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.create_date = timezone.now()
+            answer.question = question #Foreign Key
+            answer.save()
+            return redirect("yannjuName:detail", question_id=question.id)
+    else:
+        form = AnswerForm()
+    context =  {'question':question, 'form':form}
+    return render(request, 'yannjuApp/question_detail.html', context)
+    
