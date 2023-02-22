@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class = "container">
+        <h5 class = "my-3 border-bottom pb-2">
+            <i class="fa-solid fa-thumbtack"></i>
+            질문 등록...( ＿ ＿)ノ｜
+        </h5>
+        <form method="post" class="post-form my-3">
+            {% csrf_token %}
+            {{form.as_p}} <!--as_p : <p>태그로 묶어서 입력을 보내겠다는 의미-->
+            <button type="submit" class = "btn btn-success">
+                <i class="fa-regular fa-paper-plane"></i>
+                저장하기 (∩^o^)⊃━☆
+            </button>
+        </form>
+    </div>
+{% endblock content %}

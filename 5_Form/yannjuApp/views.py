@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question
 from django.utils import timezone
+from .forms import QuestionForm
 
 # Create your views here.
 def index(request):
@@ -24,9 +25,24 @@ def detail(request, question_id):
 
 def answer_create(request, question_id):
     """
-    pybo 답변등록
+    yannjuApp 답변등록
     """
     question = get_object_or_404(Question, pk=question_id)
     question.answer_set.create(content=request.POST.get('content'), 
     create_date=timezone.now()) 
     return redirect('yannjuName:detail', question_id=question.id)
+
+def question_create(request):
+    """
+    yannjuApp 질문등록
+    """
+    if request.method == 'POST': #POST 요청이라면 -> 저장하기 버튼
+        form = QuestionForm(request.POST) #request.POST : 사전 형태로 데이터가 들어옴
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.create_date = timezone.now()
+            question.save()
+            return redirect('yannjuName:index')
+    else: #GET 요청이라면 -> 질문등록버튼
+        form = QuestionForm() #비어있는 데이터
+    return render(request, 'yannjuApp/question_form.html', {'form':form})
