@@ -39,3 +39,46 @@
     - `request.method` 를 이용하여 **POST** 와 **GET**을 구분하여 기능을 나누어줌
     - `GET`요청인 경우 비어있는 `QuestionForm()`을 만들어줌
     - `POST`요청인 경우 데이터가 포함된 `QuestionForm()`을 **DB**에 저장
+    - *question/create* 주소에서 내용을 작성 후 `저장하기`를 클릭하면 목록에 데이터가 뜸
+     
+        ![저장 후 목록](../img/5_img(2).png)
+- ### Form에 부트스트랩 적용
+    - *[./yannjuApp/forms.py](./yannjuApp/forms.py)* 에서 각 field들을 추가적으로 관리
+     
+        ```html
+        <!--yannjuApp/forms.py-->
+        <!--상위 생략-->
+         widgets = {
+            'subject' : forms.TextInput(attrs={'class':'form-control'}),
+            'content' : forms.Textarea(attrs={'class' : 'form-control', 'rows' : 10}),
+        }
+        <!--하위 생략-->
+        ``` 
+    -  `Widget` : 사전형태로 이루어져 각 content를 관리
+- ### 직접 `<div>`로 정의하여 관리
+   - *[./templates/yannjuApp/question_form.html](./templates/yannjuApp/question_form.html)* 에서 수작업으로 form을 작성하여 관리
+   - 이때 `as_p`로 `<p>`태그로 묶은것을 *해제* 해야함
+    
+        ``` html
+        <!--templates/yannjuApp/question_form.html-->
+        <!--상위 생략-->
+        <form method="post" class="post-form my-3">
+            {% csrf_token %}
+            <!--<p>태그로 묶은 것을 해제-->
+            {% comment %} {{form.as_p}} <!--as_p : <p>태그로 묶어서 입력을 보내겠다는 의미--> {% endcomment %}
+            
+                <!--Err Start-->
+                <!--Err End-->
+                <div class="form-group">
+                    <label for="subject">제목</label>
+                    <input type="text" class="form-control" name="subject" 
+                    id="subject" value="{{ form.subject.value|default_if_none:'' }}">
+                </div>
+                <div class="form-group">
+                <label for="content">내용</label>
+                <textarea class="form-control" name="content" id="content" 
+                rows="10">{{form.content.value|default_if_none:''}}</textarea>
+                </div>
+        <!--하위 생략-->
+        ```
+    - **직접** 각 컨텐츠들을 작성하여 화면에 표시
