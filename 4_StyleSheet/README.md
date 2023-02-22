@@ -61,6 +61,7 @@
       -  `bootstrap.min.css`의 위치를 `base.html`에 작성하여 코드 중복 해결
       -  `body`내에 `block`문만 신경쓰면 된다.
       -  이후 다른 StyleSheet templates Html 들 상단에 extends 작성, block 문 내부로 이동시킴
+        
           ```html
           <!--./templates/yannjuApp/question_list.html-->
           {% extends 'base.html' %}
@@ -72,6 +73,7 @@
           </div>
           ```
         - 또한 *[./templates/yannjuApp/question_detail.html](./templates/yannjuApp/question_detail.html)*  와 *[./templates/yannjuApp/question_list.html](./templates/yannjuApp/question_list.html)*  와  모두 전체적으로 `<div container>` 로 감싸져 있으므로 **공통 block**  으로 빼내어 사용
+         
           ```html
           <!--templates/base.html-->
           <div class = "container my-3">
@@ -83,4 +85,5 @@
    - 아이콘 **폰트** 이기 때문에 *글자처럼* 사용 가능
    - *[./templates/base.html](./templates/base.html)* 에 `font awesome cdn` 태그를 추가
    - `font awesome`에서 원하는 아이콘을 선택하여 태그 추가
-   ![이미지 업로드](../img/4_img(2).png) 
+    
+    ![이미지 업로드](../img/4_img(2).png) 
