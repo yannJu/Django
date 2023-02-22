@@ -82,3 +82,52 @@
         <!--하위 생략-->
         ```
     - **직접** 각 컨텐츠들을 작성하여 화면에 표시
+- ### 에러처리
+  - `form_isvalid()` 사용시 **False** 의 경우 오류 처리를 해야함
+    - **False** 발생시 `form.errors`가 반환됨
+  - BootStrap 에서 `Alert`를 사용
+   
+    ```html
+    <!--Err Start-->
+    {% if form.errors %}
+        <div class="alert alert-danger" role ='alert'>
+            {% for field in form %}
+                {% if  field.errors %}
+                    <strong>{{ field.label }}</strong> 
+                    {{ field.errors }}
+                {% endif %}
+            {% endfor %}
+            </div>
+    {% endif %}
+    <!--Err End-->
+    ``` 
+    - field.error**s** : 여러개의 에러가 *동시에* 위배될 수 있음
+     
+    ![](../img/5_img(3).png) 
+  - 아무것도 *작성하지 않아* **오류가** 발생한 것을 볼 수 있음
+  - 각 항목별로 **항목 아래**에 오류를 표기하려면 전체 `loop`를 도는 것이 아니라 각각 `loop`를 돌면 됨
+   
+    ```html
+    <!--TITLE-->
+    <div class="form-group">
+        <label for="subject">제목</label>
+        <input type="text" class="form-control" name="subject" 
+        id="subject" value="{{ form.subject.value|default_if_none:'' }}">
+        <!--항목별 에러처리-->
+        {% if form.subject.errors %}
+            <div class="text-danger" >
+                {% for error in form.content.errors %}
+                    <div>
+                            <i class = 'fa-solid fa-triangle-exclamation'></i>
+                            {{error}}
+                    </div>
+                {% endfor %}
+        {% endif %}
+        <!--에러처리 끝-->
+    </div>
+    ``` 
+    - `subject`에 대한 `Error`들을 각각 처리해서 칸 아래에 나타냄
+  - `subject`와 `content` 모두 적용하면 아래와 같음
+   
+    ![에러이미지2](../img/5_img(4).png)
+ - 
