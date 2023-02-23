@@ -1,0 +1,38 @@
+<!--question_list : views에서 정의한 컨텍스트 변수-->
+{% extends 'base.html' %}
+
+{% block content %}
+    <table class = 'table table-hover table-bordered'>
+        <thead>
+            <tr class = "thead-dark">
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성일시</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if question_list %}
+                {% for question in question_list %}
+                    {% comment %} <li><a href = '{{question.id}}'>{{question.subject}}</a></li> {% endcomment %}
+                    <tr>
+                        <td>{{question.id}}</td>
+                        <td><a href = "{% url 'yannjuName:detail' question.id %}">{{question.subject}}</a></td>
+                        <td>{{question.create_date}}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan = '3'>질문이 없습니다 . . ㅎ ㅅ ㅎ</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'yannjuName:question_create' %}" class="btn btn-info">
+        <i class="fa-solid fa-pen"></i>
+        질문 등록하기 (╯▽╰ )
+    </a>
+
+    <!--page목록 표시-->
+    {% include 'pagination.html' %}
+{% endblock content %}

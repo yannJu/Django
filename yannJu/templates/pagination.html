@@ -1,0 +1,59 @@
+{% load static %} <!--static lib을 사용함을 의미-->
+<link rel = "stylesheet" type = "text/css" href = "{% static 'style.css' %}">
+
+<!--페이지 목록창-->
+<ul class="pagination my-3 justify-content-center">
+    <!--이전 페이지-->
+    {% if question_list.has_previous %}
+        <!--처음으로 버튼-->
+        <li class = "page-item">
+            <a class = "page-link" href = "?page=1">
+                <i class="fa-solid fa-angles-left"></i>    
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{question_list.previous_page_number}}">
+                <i class="fa-solid fa-angle-left"></i>
+            </a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex='-1' aria-disabled='true'>
+                <i class="fa-solid fa-angle-left"></i>
+            </a>
+        </li>
+    {% endif %}
+    <!--페이지 리스트 -> 페이지 표시 제한-->
+    {% for page_number in question_list.paginator.page_range %}
+        {% if page_number >= question_list.number|add:-3 and page_number <= question_list.number|add:3%}
+            {% if page_number == question_list_number %}
+                <li class="page-item active" aria-current = 'page'>
+                    <a class="page-link" href="?page={{page_number}}">{{page_number}}</a>
+                </li>
+            {% else %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{page_number}}">{{page_number}}</a>
+                </li>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    <!--다음페이지-->
+    {% if question_list.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{question_list.next_page_number}}">
+                <i class="fa-solid fa-angle-right"></i></a>
+        </li>
+        <!--끝으로 버튼-->
+        <li class = "page-item">
+            <a class = "page-link" href = "?page={{question_list.paginator.num_pages}}">
+                <i class="fa-solid fa-angles-right"></i>
+            </a>
+        </li>
+    {% else %}
+        <li class="page-item disabled">
+            <a class="page-link" href="#" tabindex='-1' aria-disabled='true'>
+                <i class="fa-solid fa-angle-right"></i>
+            </a>
+        </li>
+    {% endif %}
+</ul>
