@@ -12,10 +12,14 @@
         <link rel = "stylesheet" type = "text/css" href = "{% static 'style.css' %}">
     </head>
     <body>
+        <!--navbar.html을 include 하여 불러옴-->
+        {% include 'navbar.html' %}
         <!--공통 템플릿-->
         <!--블럭 내에만 뭐가 들어갈지 신경쓰면 된다-->
         <div class = "container my-3">
             {% block content %}{% endblock content %}
         </div>
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+        <script src = "{% static 'bootstrap.min.js' %}"></script>
     </body>
 </html>

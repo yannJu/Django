@@ -15,7 +15,7 @@
                 {% for question in question_list %}
                     {% comment %} <li><a href = '{{question.id}}'>{{question.subject}}</a></li> {% endcomment %}
                     <tr>
-                        <td>{{forloop.counter}}</td>
+                        <td>{{question.id}}</td>
                         <td><a href = "{% url 'yannjuName:detail' question.id %}">{{question.subject}}</a></td>
                         <td>{{question.create_date}}</td>
                     </tr>
@@ -27,8 +27,12 @@
             {% endif %}
         </tbody>
     </table>
+
     <a href="{% url 'yannjuName:question_create' %}" class="btn btn-info">
         <i class="fa-solid fa-pen"></i>
         질문 등록하기 (╯▽╰ )
-</a>
+    </a>
+
+    <!--page목록 표시-->
+    {% include 'pagination.html' %}
 {% endblock content %}
