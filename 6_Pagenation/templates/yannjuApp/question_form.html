@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class = "container">
+        <h5 class = "my-3 border-bottom pb-2">
+            <i class="fa-solid fa-thumbtack"></i>
+            질문 등록...( ＿ ＿)ノ｜
+        </h5> 
+        <form method="post" class="post-form my-3">
+            {% csrf_token %}
+            <!--{{form.as_p}} as_p : <p>태그로 묶어서 입력을 보내겠다는 의미-->
+            
+            <!--Err Start>
+            {% if form.errors %}
+                <div class="alert alert-danger" role ='alert'>
+                    {% for field in form %}
+                        {% if  field.errors %}
+                            <strong>{{ field.label }}</strong> 
+                            {{ field.errors }}
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+            {% endif %}
+            <Err End-->
+                
+            <!--TITLE-->
+            <div class="form-group">
+                <label for="subject">제목</label>
+                <input type="text" class="form-control" name="subject" 
+                id="subject" value="{{ form.subject.value|default_if_none:'' }}">
+                <!--항목별 에러처리-->
+                {% if form.subject.errors %}
+                    <div class="text-danger" >
+                        {% for error in form.content.errors %}
+                            <div>
+                                    <i class = 'fa-solid fa-triangle-exclamation'></i>
+                                    {{error}}
+                            </div>
+                        {% endfor %}
+                {% endif %}
+                <!--에러처리 끝-->
+            </div>
+
+            <!--CONTENT-->
+            <div class="form-group">
+                <label for="content">내용</label>
+                <textarea class="form-control" name="content" id="content" 
+                rows="10">{{form.content.value|default_if_none:''}}</textarea>
+                <!--항목별 에러처리-->
+                {% if form.content.errors %}
+                    <div class="text-danger" >
+                        {% for error in form.content.errors %}
+                            <div>
+                                    <i class = 'fa-solid fa-triangle-exclamation'></i>
+                                    {{error}}
+                            </div>
+                        {% endfor %}
+                {% endif %}
+                <!--에러처리 끝-->
+            </div>
+
+            <div>
+                <button type="submit" class = "btn btn-success mt-2">
+                <i class="fa-regular fa-paper-plane"></i>
+                저장하기 (∩^o^)⊃━☆
+                </button>
+            </div>
+
+            <div  class='my-2'>
+                <a href = '{% url 'yannjuName:index' %}'>
+                    목록으로ε=(~￣▽￣)~
+                </a>
+            </div>
+        </form>
+    </div>
+{% endblock content %}
