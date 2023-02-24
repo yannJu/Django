@@ -6,3 +6,19 @@
 .page-link {
     border : 0px;
 }
+
+.auth-form{
+    width: 100%;
+}
+
+/*width 가 540이상이면 : 반응형 웹*/
+@media(min-width:540px){
+    .auth-form{
+        width: 540px;
+    }
+}
+@media(max-width:720px){
+    .auth-form{
+        width: 720px;
+    }
+}

@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div style='width:500px' class='mx-auto'>
-    <h2>
-        <i class='fa-solid fa-right-to-bracket'></i>
-        로그인
-    </h2> 
+<div style='width:500px' class='row mx-auto my-3'>
+    <div class='col sm-4'> <!--sm : 회상도에 따라 관리됨-->
+        <h2>
+            <i class='fa-solid fa-right-to-bracket'></i>
+            로그인
+        </h2>
+    </div>
+    <!--
+    <div class='col sm-8 text-right'>
+        또는 <a href = '{% url 'common:signup' %}'>회원가입하기 🎇</a>
+    </div>
+    -->
+</div>
 
+<div style='width:500px' class='mx-auto'>
     <form method='post' class = 'post-form'>
         {% csrf_token %}
         {% include "form_errors.html" %}
@@ -20,7 +29,14 @@
             <input type="password" class="form-control" name="password" 
             id="password" value="{{ form.password.value|default_if_none:'' }}">
         </div>
-        <button type='submit' class = 'btn btn-primary'>로그인/ᐠ｡ꞈ｡ᐟ\</button>
     </form>
 </div>
+
+<div style='width:500px' class='mx-auto my-3'>
+    <button type='submit' class = 'btn btn-primary' style='width:500px'>로그인/ᐠ｡ꞈ｡ᐟ\</button>
+    <div>
+    <p style='width:500px' class='my-3'>아직 회원이 아니신가요? 😮</p>
+    <a href= "{% url 'common:signup' %}"class='btn btn-light'>회원가입하기☆*: .｡.</a>
+</div>
+
 {% endblock content %}

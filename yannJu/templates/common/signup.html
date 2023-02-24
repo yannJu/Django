@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% comment %} <div class='container my-3'> {% endcomment %}
+<div style='width:500px' class='mx-auto'>
+    <div class='row my-3'>
+        <div class = 'col sm-4'>
+
+            <h4>계정 생성</h4>
+        </div>
+        <div class='col sm-8 text-right'>
+            또는 <a href='{% url 'common:login' %}'>로그인 하기🎀</a>
+        </div>
+    </div>
+</div>
+
+<div style='width:500px' class='mx-auto'>
+    <!--폼 인터페이스 작성-->
+    <form method='post' class = 'post-form'>
+        {% csrf_token %}
+        {% include 'form_errors.html' %}
+        
+        <!--Username-->
+        <div class='form-group'>
+            <label for='username'>사용자 이름</label>
+            <input type='text' class='form-control' name='username' id='usernam' 
+            value="{{form.username.value|default_if_none:''}}">
+        </div>
+        
+        <!--Passwd-->
+        <div class='form-group'>
+            <label for='password1'>비밀번호</label>
+            <input type='password' class='form-control' name='password1'  id='password1'
+            value="{{form.password1.value|default_if_none:''}}">
+        </div>
+        <!--Passwd Ck-->
+        <div class='form-group'>
+            <label for='password2'>비밀번호 확인</label>
+            <input type='password' class='form-control' name='password2'  id='password2'
+            value="{{form.password2.value|default_if_none:''}}">
+        </div>
+
+        <!--Email-->
+        <div class='form-group'>
+            <label for='email'>이메일</label>
+            <input type='text' class='form-control' name='email' id='email'
+            value="{{form.email.value|default_if_none:''}}">
+        </div>
+
+        <!--Button-->
+        <button type='submit' class='btn btn-primary'>생성하기 ,,ԾㅂԾ,,</button>
+    </form>
+</div>
+
+{% endblock content %}
+
