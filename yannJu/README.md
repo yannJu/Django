@@ -118,7 +118,7 @@
 - ### 회원가입 및 로그인 테스트
   - 회원가입 창에서 *정보* 입력   
    
-    ![회원가입](../img/img_%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%ED%8E%98%EC%9D%B4%EC%A7%80.PNG) |![회원가입 후 로그인](../img/img_%EB%A1%9C%EA%B7%B8%EC%9D%B8%EC%84%B1%EA%B3%B51.PNG)
+    ![회원가입](../img/img_%EB%A1%9C%EA%B7%B8%EC%9D%B8%EA%B3%BC%EC%A0%95.PNG) |![회원가입 후 로그인](../img/img_%EB%A1%9C%EA%B7%B8%EC%9D%B8%EC%84%B1%EA%B3%B51.PNG)
     ---|---|
   - 로그인 창에서 *로그인* 
 
