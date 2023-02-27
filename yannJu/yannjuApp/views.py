@@ -3,6 +3,8 @@ from .models import Question
 from django.utils import timezone
 from django.core.paginator import Paginator
 from .forms import QuestionForm, AnswerForm
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 # Create your views here.
 def index(request):
@@ -33,6 +35,7 @@ def detail(request, question_id):
     context = {'question' : question}
     return render(request, 'yannjuApp/question_detail.html', context)
 
+@login_required(login_url='common:login') #Decorator 함수 -> 로그인이 되어있는지 먼저 유효성 체크
 def answer_create(request, question_id):
     """
     yannjuApp 답변등록
@@ -42,6 +45,30 @@ def answer_create(request, question_id):
     create_date=timezone.now()) 
     return redirect('yannjuName:detail', question_id=question.id)
 
+@login_required(login_url='common:login')
+def question_modify(request, question_id):
+    """
+    yannJuApp 게시글 질문 수정
+    """
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user != question.auth:
+        messages.error(request, '수정 권한이 없습니다. . 😅')
+        return redirect('yannjuName:detail', question_id = question.id)
+    
+    if request.method == "POST":
+        form = QuestionForm(request.POST, instance=question) #기존 데이터를 가져온 후 POST 데이터로 덮어씌움
+        if form.is_valid():
+            form.question = form.save(commit=False)
+            # form.auth = request.user 이미 못들어오게 해놨기 때문에 없어도 됨
+            form.modify_date = timezone.now()
+            question.save()
+            return redirect('yannjuName:detail', question_id=question.id)
+    else:
+        form = QuestionForm(instance=question)
+    context = {'form' : form}
+    return render(request, 'yannjuApp/question_form.html', context)
+
+@login_required(login_url='common:login')
 def question_create(request):
     """
     yannjuApp 질문등록
@@ -50,6 +77,7 @@ def question_create(request):
         form = QuestionForm(request.POST) #request.POST : 사전 형태로 데이터가 들어옴
         if form.is_valid():
             question = form.save(commit=False)
+            question.auth = request.user
             question.create_date = timezone.now()
             question.save()
             return redirect('yannjuName:index')
@@ -67,6 +95,7 @@ def answer_create(request, question_id):
         form = AnswerForm(request.POST)
         if form.is_valid():
             answer = form.save(commit=False)
+            answer.auth = request.user
             answer.create_date = timezone.now()
             answer.question = question #Foreign Key
             answer.save()
@@ -75,4 +104,3 @@ def answer_create(request, question_id):
         form = AnswerForm()
     context =  {'question':question, 'form':form}
     return render(request, 'yannjuApp/question_detail.html', context)
-    

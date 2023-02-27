@@ -13,11 +13,22 @@
         또는 <a href = '{% url 'common:signup' %}'>회원가입하기 🎇</a>
     </div>
     -->
+    {% if next %}
+    <div class='alert alert-danger' style='width:500px' class='mx-auto my-3'>
+        <strong>
+            로그인
+        </strong>
+        로그인이 필요한 서비스입니다 ≧ ﹏ ≦
+    </div>
+    {% endif %}
 </div>
+
 
 <div style='width:500px' class='mx-auto'>
     <form method='post' class = 'post-form'>
         {% csrf_token %}
+        <!-- 로그인 성공 후 이동되는 URL -->
+        <input type="hidden" name="next" value="{{ next }}">
         {% include "form_errors.html" %}
         <div class="form-group">
             <label for="username">사용자ID (。_。)</label>
@@ -29,14 +40,15 @@
             <input type="password" class="form-control" name="password" 
             id="password" value="{{ form.password.value|default_if_none:'' }}">
         </div>
-    </form>
-</div>
 
-<div style='width:500px' class='mx-auto my-3'>
-    <button type='submit' class = 'btn btn-primary' style='width:500px'>로그인/ᐠ｡ꞈ｡ᐟ\</button>
-    <div>
-    <p style='width:500px' class='my-3'>아직 회원이 아니신가요? 😮</p>
-    <a href= "{% url 'common:signup' %}"class='btn btn-light'>회원가입하기☆*: .｡.</a>
+        <div style='width:500px' class='mx-auto my-3'>
+            <button type='submit' class = 'btn btn-primary' style='width:500px'>로그인/ᐠ｡ꞈ｡ᐟ\</button>
+            <div>
+                <p style='width:500px' class='my-3'>아직 회원이 아니신가요? 😮</p>
+                <a href= "{% url 'common:signup' %}"class='btn btn-light'>회원가입하기☆*: .｡.</a>
+            </div>
+        </div>
+    </form>
 </div>
 
 {% endblock content %}

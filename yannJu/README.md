@@ -130,9 +130,47 @@
 
   ![로그인 버튼 위치 변경](../img/img_%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85ver2.PNG) 
 - ### 게시글 각각에 허용 범위 설정
+  - 게시글 *작성자* 추가하기
+    - `Question` 객체에 `User`객체를 **Join**
+      - *[./yannjuApp/models.py > Question](./yannjuApp/models.py)* 에 *auth* 추가
+       
+        ```python
+        // ./yannjuApp/models.py
+        from django.contrib.auth.models import User
+        //(생략 . .)
+        auth = models.ForeignKey(User, on_delete=models.CASCADE)
+        //(생략 . .)
+        ``` 
+    - 객체에 *필드*를 추가 한 후 `migration`을 해 주어야함
+    - 이때 *필드*가 추가되면서 **테이블 구조**가 바뀐 상태임에도 기존 데이터에도 *적용*을 시켜주어야함
+    - 하지만 `author`는 **Not Null** 이므로 default 값이 지정 되어야함
+      - `python manage.py makemigrations`를 하게 되면 해당 부분에 대한 **경고** 발생
+      - default 값을 정해주고 `python manage.py migrate`를 실행시켜 DB에 적용
+      - 다음과 같이 *[./yannjuApp/migrations/0002_question_auth.py](./yannjuApp/migrations/0002_question_auth.py)* 파일이 생성되며 작성됨
+
+        ```python
+        //./yannjuApp/migrations/0002_question_auth.py
+        //(생략. .)
+        operations = [
+            migrations.AddField(
+                model_name='question',
+                name='auth',
+                field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='auth.user'),
+                preserve_default=False,
+            ),
+        //(생략. .)
+        ]
+        ```
+    - `Answer` 객체에도 동일하게 적용
+    - 
   - **로그인 계정**만 게시글을 *작성*
-  - **게시글 작성자**만 *수정 및 삭제* 가능
-  - 모든 게시글은 **전체보기**
+- ### 수정 처리
+  - 게시글 **작성자** 만 게시글을 수정
+  - 오류처리 -> 범용처리
+  - ### 삭제 처리
+  - data-uri: 브라우저는 속성을 모름, 개발자만 알고 정보를 담기만 함 'data-'로 시작하면 사용자 정의 속성 : script 처리를 해야함
+  - base.html 에 script block 추가
 ---
 ## 🧨미해결
-→ (02230) `NavBar`가 자동으로 닫힘 
+→ (0223) `NavBar`가 자동으로 닫힘 
+→ (0224) 로그인 창에서 `로그인` 버튼이 기능을 안함
