@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load bootstrap4 %}
 {% block content %}
 <div style='width:500px' class='row mx-auto my-3'>
     <div class='col sm-4'> <!--sm : 회상도에 따라 관리됨-->
@@ -28,7 +28,7 @@
     <form method='post' class = 'post-form'>
         {% csrf_token %}
         <!-- 로그인 성공 후 이동되는 URL -->
-        <input type="hidden" name="next" value="{{ next }}">
+        {% comment %} <input type="hidden" name="next" value="{{ next }}">
         {% include "form_errors.html" %}
         <div class="form-group">
             <label for="username">사용자ID (。_。)</label>
@@ -39,7 +39,8 @@
             <label for="password">비밀번호 (。_。)</label>
             <input type="password" class="form-control" name="password" 
             id="password" value="{{ form.password.value|default_if_none:'' }}">
-        </div>
+        </div> {% endcomment %}
+        {% bootstrap_form form%}
 
         <div style='width:500px' class='mx-auto my-3'>
             <button type='submit' class = 'btn btn-primary' style='width:500px'>로그인/ᐠ｡ꞈ｡ᐟ\</button>

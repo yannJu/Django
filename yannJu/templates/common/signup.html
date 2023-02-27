@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load bootstrap4 %}
 {% block content %}
 
 {% comment %} <div class='container my-3'> {% endcomment %}
@@ -19,9 +19,10 @@
     <!--폼 인터페이스 작성-->
     <form method='post' class = 'post-form'>
         {% csrf_token %}
-        {% include 'form_errors.html' %}
+        {% comment %} {% include 'form_errors.html' %} {% endcomment %}
         
-        <!--Username-->
+        {% bootstrap_form form %}
+        {% comment %} <!--Username-->
         <div class='form-group'>
             <label for='username'>사용자 이름</label>
             <input type='text' class='form-control' name='username' id='usernam' 
@@ -46,7 +47,7 @@
             <label for='email'>이메일</label>
             <input type='text' class='form-control' name='email' id='email'
             value="{{form.email.value|default_if_none:''}}">
-        </div>
+        </div> {% endcomment %}
 
         <!--Button-->
         <button type='submit' class='btn btn-primary'>생성하기 ,,ԾㅂԾ,,</button>

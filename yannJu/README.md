@@ -206,7 +206,33 @@
     ![삭제img](../img/v2_img(2).PNG)
     ![삭제img](../img/v2_img(3).PNG)
 
--
+- ### 답변 수정하기 `(V0.0.2-)`
+  - 
+- ### Bootstrap Form 이용하기
+  - 기존의 `로그인` form 이 아닌 **Bootstrap** 에서 제공하는 Form 을 통해 템플릿 구성
+  - *[./config/settings.py](./config/settings.py)* 의 `INSTALLED_APPS` 에 **'bootstrap4'** 을 추가
+  - 이후 `bootstrap` form을 사용할 경우 `load` 및 불러오기
+   
+    ```html
+    <!--./templates/yannjuApp/answer_form.html-->
+    {% extends 'base.html' %}
+    {% load bootstrap4 %}
+
+    {% block content %}
+    <form method="POST" class='post-form'>
+        {% csrf_token %}
+        {% bootstrap_form form %}
+
+        <button type='submit' class="btn btn-primary"> 저장하기 </button>
+    </form>
+    {% endblock content %}
+    ```
+    - 상단에 `load`를 통해 **bootstrap** 을 불러온 후 중간에 `{% bootstrap_form form %}` form 사용
+    - *[./templates/common/signup.html](./templates/common/signup.html)* 에 기존 작성했던 속성들을 지우고 위처럼 `{% bootstrap_form form %}` form 작성
+
+    ![부트스트랩 폼 사용](../img/v2_img(4).PNG)
+  - `로그인, 답변수정` 등에도 동일하게 *적용*
+
 ---
 ## 🧨미해결
 → (0223) `NavBar`가 자동으로 닫힘 
