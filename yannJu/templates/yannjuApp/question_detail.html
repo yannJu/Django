@@ -30,7 +30,7 @@
             {% comment %} '{% url 'yannjuName:question_modify question.id ' %}' {% endcomment %}
             <a href ='{% url 'yannjuName:question_modify' question.id  %}' class='btn btn-dark'>수정</a>
         </span>
-        <span>
+        <span >
             <a href ='#' class='delete btn btn-sm btn-danger' data-uri = "{% url 'yannjuName:question_delete' question.id %}">삭제</a>
         </span>
     {% endif %}
@@ -104,13 +104,11 @@
 {% block script %}
 <script>
     $(document).ready(function(){
-        /*
-        $(".delete").on("click", funtion() {
-
-
-        });*/
-        console.log("Loading End")
-        console.log($('.delete'));
+        $(".delete").on("click", function() {
+            if (confirm("정말로 삭제 하시겠습니까?")) {
+                location.href = $(this).data('uri');
+            }
+        });
     });
 </script>
 {% endblock script %}

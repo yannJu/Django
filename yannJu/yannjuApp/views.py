@@ -35,15 +35,14 @@ def detail(request, question_id):
     context = {'question' : question}
     return render(request, 'yannjuApp/question_detail.html', context)
 
-@login_required(login_url='common:login') #Decorator 함수 -> 로그인이 되어있는지 먼저 유효성 체크
-def answer_create(request, question_id):
-    """
-    yannjuApp 답변등록
-    """
-    question = get_object_or_404(Question, pk=question_id)
-    question.answer_set.create(content=request.POST.get('content'), 
-    create_date=timezone.now()) 
-    return redirect('yannjuName:detail', question_id=question.id)
+# def answer_create(request, question_id):
+#     """
+#     yannjuApp 답변등록
+#     """
+#     question = get_object_or_404(Question, pk=question_id)
+#     question.answer_set.create(content=request.POST.get('content'), 
+#     create_date=timezone.now()) 
+#     return redirect('yannjuName:detail', question_id=question.id)
 
 @login_required(login_url='common:login')
 def question_modify(request, question_id):
@@ -86,6 +85,7 @@ def question_create(request):
     context = {'form':form}
     return render(request, 'yannjuApp/question_form.html', context)
 
+@login_required(login_url='common:login') #Decorator 함수 -> 로그인이 되어있는지 먼저 유효성 체크
 def answer_create(request, question_id):
     """
     yannjuApp 답변 등록
@@ -104,3 +104,15 @@ def answer_create(request, question_id):
         form = AnswerForm()
     context =  {'question':question, 'form':form}
     return render(request, 'yannjuApp/question_detail.html', context)
+
+@login_required(login_url='common:login')
+def question_delete(request, question_id):
+    """
+    yannjuApp 질문 삭제
+    """
+    question = get_object_or_404(Question, pk=question_id)
+    if request.user != question.auth:
+        messages.error(request, '삭제 권한이 없습니다. . 😅')
+        return redirect('yannjuName:detail', question_id = question.id)
+    question.delete()
+    return redirect('yannjuName:index')

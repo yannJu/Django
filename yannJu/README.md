@@ -167,10 +167,48 @@
 - ### 수정 처리
   - 게시글 **작성자** 만 게시글을 수정
   - 오류처리 -> 범용처리
-  - ### 삭제 처리
-  - data-uri: 브라우저는 속성을 모름, 개발자만 알고 정보를 담기만 함 'data-'로 시작하면 사용자 정의 속성 : script 처리를 해야함
-  - base.html 에 script block 추가
+- ### 삭제 처리 `(V0.0.2-)`
+  - 바로 **삭제** 되는 것을 방지 하기 위해 한번 더 묻는 창을 띄움
+  - *[./templates/yannjuApp/question_detail.html](./templates/yannjuApp/question_detail.html)* 에 `삭제` 버튼 추가
+    - 이 때 `bt4` 의 버튼 클래스가 아닌 **script** 사용 으로 *동적 처리* 진행
+  - `data-uri`: 브라우저는 속성을 모름, 개발자만 알고 정보를 담기만 함 **'data-'** 로 시작하면 사용자 정의 속성 : script 처리를 해야함
+  - *[base.html](./templates/base.html)* 에 script block 추가
+   
+   ```html
+  <!--./templates/base.html-->
+  <!--생략 . .25-26번줄-->
+  <!-- Delete -->
+  {% block script %}{% endblock script %}
+  <!--생략 . .-->
+   ```
+  - *[./templates/yannjuApp/question_detail.html](./templates/yannjuApp/question_detail.html)* 에 `<script>` 블록을 만들고 동적처리를 진행
+
+  ```html
+  <!--./templates/yannjuApp/question_detail.html-->
+  <!--생략..-->
+  {% block script %}
+  <script>
+      $(document).ready(function(){
+          $(".delete").on("click", function() {
+              if (confirm("정말로 삭제 하시겠습니까?")) {
+                  location.href = $(this).data('uri');
+              }
+          });
+      });
+  </script>
+  {% endblock script %}
+  ``` 
+  - `script function`을 이용하여 해당 페이지가 준비되고, **delete** 클래스가 **click** 된 경우 `if`문 실행
+  - *[./yannjuApp/urls.py](./yannjuApp/urls.py)*에 **delete** 주소를 mapping
+  - *[./yannjuApp/views.py](./yannjuApp/views.py)* 에 기능을 작성
+
+    ![삭제img](../img/v2_img(1).PNG)
+    ![삭제img](../img/v2_img(2).PNG)
+    ![삭제img](../img/v2_img(3).PNG)
+
+-
 ---
 ## 🧨미해결
 → (0223) `NavBar`가 자동으로 닫힘 
-→ (0224) 로그인 창에서 `로그인` 버튼이 기능을 안함
+
+~ → (0224) 로그인 창에서 `로그인` 버튼이 기능을 안함 ~ **[해결]**
