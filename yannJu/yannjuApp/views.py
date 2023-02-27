@@ -140,3 +140,15 @@ def answer_modify(request, answer_id):
         
     context = {'answer': answer, 'form': form}
     return render(request, 'yannjuApp/answer_form.html', context)
+
+@login_required(login_url='common:login')
+def answer_delete(request, answer_id):
+    """
+    yannjuApp 질문 삭제
+    """
+    answer = get_object_or_404(Answer, pk=answer_id)
+    if answer.auth != request.user:
+        messages.error(request, '삭제 권한이 없습니다. . 😅')
+        return redirect('yannjuName:detail', answer_id = answer.id)
+    answer.delete()
+    return redirect('yannjuName:detail', question_id=answer.question.id)

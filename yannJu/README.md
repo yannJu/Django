@@ -206,8 +206,15 @@
     ![삭제img](../img/v2_img(2).PNG)
     ![삭제img](../img/v2_img(3).PNG)
 
-- ### 답변 수정하기 `(V0.0.2-)`
-  - 
+- ### 답변 수정 및 삭제하기 `(V0.0.2-)`
+  - *질문 수정 및 삭제* 와 **유사하게** 진행
+  - *[./templates/yannjuApp/question_detail.html](./templates/yannjuApp/question_detail.html)* 의 답변 부분에 `수정`, `삭제` 버튼 생성
+   
+    ![답변 수정, 삭제 버튼 생성](../img/v2_img(5).PNG)
+  - 각 버튼 당 `url`을 설정하여 mapping
+  - *[./yannjuApp/views.py](./yannjuApp/views.py)* 에 기능을 처리하는 함수를 구현
+    - 수정 : *[./templates/yannjuApp/answer_form.html](./templates/yannjuApp/answer_form.html)* 을 이용하여 재작성 후 `save`
+    - 삭제 : 질문 삭제와 유사하게 `script`를 통해 삭제여부 다시 묻기
 - ### Bootstrap Form 이용하기
   - 기존의 `로그인` form 이 아닌 **Bootstrap** 에서 제공하는 Form 을 통해 템플릿 구성
   - *[./config/settings.py](./config/settings.py)* 의 `INSTALLED_APPS` 에 **'bootstrap4'** 을 추가

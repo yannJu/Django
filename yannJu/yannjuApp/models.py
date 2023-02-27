@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Question(models.Model):
     # 파스칼 표기법에 의한 클래스 임을 알 수 있다.
     subject = models.CharField('제목', max_length=200)
-    content = models.TextField('내용')
+    content = models.TextField('내용', help_text='비방, 욕설 및 도배글은 삭제될 수 있습니다- (/▽＼)')
     create_date =  models.DateTimeField('날짜')
     auth = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     modify_date = models.DateTimeField(null=True, blank=True)
