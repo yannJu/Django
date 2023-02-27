@@ -57,9 +57,9 @@ def question_modify(request, question_id):
     if request.method == "POST":
         form = QuestionForm(request.POST, instance=question) #기존 데이터를 가져온 후 POST 데이터로 덮어씌움
         if form.is_valid():
-            form.question = form.save(commit=False)
+            question = form.save(commit=False)
             # form.auth = request.user 이미 못들어오게 해놨기 때문에 없어도 됨
-            form.modify_date = timezone.now()
+            question.modify_date = timezone.now()
             question.save()
             return redirect('yannjuName:detail', question_id=question.id)
     else:
@@ -144,7 +144,7 @@ def answer_modify(request, answer_id):
 @login_required(login_url='common:login')
 def answer_delete(request, answer_id):
     """
-    yannjuApp 질문 삭제
+    yannjuApp 답변 삭제
     """
     answer = get_object_or_404(Answer, pk=answer_id)
     if answer.auth != request.user:
