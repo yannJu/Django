@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Question, Answer
+from .models import Question, Answer, Comment
 from django.utils import timezone
 from django.core.paginator import Paginator
-from .forms import QuestionForm, AnswerForm
+from .forms import QuestionForm, AnswerForm, CommentForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
@@ -152,3 +152,53 @@ def answer_delete(request, answer_id):
         return redirect('yannjuName:detail', answer_id = answer.id)
     answer.delete()
     return redirect('yannjuName:detail', question_id=answer.question.id)
+
+#Comment Line-------------
+@login_required(login_url='common:login')
+def comment_create_question(request, question_id):
+    question = get_object_or_404(Question, pk=question_id)
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.auth = request.user
+            comment.create_date = timezone.now()
+            comment.question = question
+            comment.save()
+            
+            return redirect('yannjuName:detail', question_id = question.id)
+    else:
+        form = CommentForm()
+        
+    context = {'form' : form}
+    return render(request, './yannjuApp/comment_form.html', context)
+
+@login_required(login_url='common:login')
+def comment_modify_question(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user != comment.auth:
+        messages.error(request, '수정 권한이 없습니다. . 😅')
+        return redirect('yannjuName:detail', question_id = comment.question.id)
+    if request.method == "POST":
+        form = CommentForm(request.POST, instance=comment)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.auth = request.user
+            comment.modify_date = timezone.now()
+            comment.save()
+            return redirect('yannjuName:detail', question_id = comment.question.id)
+    else:
+        form = CommentForm(instance=comment)
+    
+    context = {'form' : form}
+    return render(request, 'yannjuApp/comment_form.html', context)
+    
+@login_required(login_url='common:login')
+def comment_delete_question(request, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    if request.user != comment.auth:
+        messages.error(request, '삭제 권한이 없습니다. . 😅')
+        return redirect('yannjuName:detail', question_id = comment.question.id)
+    else:
+       comment.delete()
+    return redirect('yannjuName:detail', question_id = comment.question.id)

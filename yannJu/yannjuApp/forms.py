@@ -1,5 +1,5 @@
 from django import forms
-from .models import Question, Answer
+from .models import Question, Answer, Comment
 
 class QuestionForm(forms.ModelForm):
     #Model에 대한것을 입력받아야하므로 Model에 대해 맞추겠다
@@ -22,4 +22,9 @@ class QuestionForm(forms.ModelForm):
 class AnswerForm(forms.ModelForm):
     class Meta:
         model = Answer
+        fields = ['content']
+        
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
         fields = ['content']

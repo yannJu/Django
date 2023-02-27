@@ -34,7 +34,7 @@
             <a href ='#' class='delete btn btn-sm btn-danger' data-uri = "{% url 'yannjuName:question_delete' question.id %}">삭제</a>
         </span>
     {% endif %}
-
+    
     <!--card 를 이용하여 사진 등 첨부 가능 : ex. yout ube 썸네일-->
     <div class = "card my-3">
         <div class = "card-body">
@@ -42,6 +42,40 @@
             <div class = "card-text" style = "white-space : pre-line;">
                 {{question.content}}
             </div>
+            
+            <!-- 질문 댓글 -->
+            {% if question.comment_set.count > 0 %}
+                <div class='mt-3'>
+                    {% for comment in question.comment_set.all %}
+                        <div class='comment py-2 text-muted'>
+                            <span style='white-space: pre-line'>
+                                {{ comment.content }}
+                            </span>
+                            <span>
+                                - {{comment.auth}}, {{comment.create_date}}
+                                {% if comment.modify_date %}
+                                    (수정 : {{comment.modify_date}})
+                                {% endif %}
+                            </span>
+                            {% if request.user == comment.auth %}
+                                <a href="{% url 'yannjuName:comment_modify_question' comment.id %}" class='small'>
+                                    수정
+                                </a>
+                                
+                                <a href='#' class='small' data-uri="{% url 'yannjuName:comment_delete_question' comment.id %}">
+                                    삭제
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div>
+                <a href = "{% url 'yannjuName:comment_create_question' question.id %}" class='small'>
+                    <small> 댓글추가 . . . </small>
+                </a>
+            </div>
+
             <!--float와 비슷하게 정렬-->
             <div class = "d-flex justify-content-end">
                 <!--badge : 사각형으로 둘러쌈-->

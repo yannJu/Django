@@ -14,4 +14,8 @@ urlpatterns = [
     path('question/create/',views.question_create, name = "question_create"),           #질문 작성 버튼
     path('question/modify/<int:question_id>/', views.question_modify, name='question_modify'),          #질문 수정 버튼
     path('question/delete/<int:question_id>/', views.question_delete, name='question_delete'),          #질문 삭제
+    #Comment
+    path('comment/create/<int:question_id>/', views.comment_create_question, name='comment_create_question'),
+    path('comment/modify/<int:comment_id>/', views.comment_modify_question, name='comment_modify_question'),
+    path('comment/delete/<int:comment_id>/', views.comment_delete_question, name='comment_delete_question'),
 ]
