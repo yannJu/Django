@@ -15,7 +15,13 @@ urlpatterns = [
     path('question/modify/<int:question_id>/', views.question_modify, name='question_modify'),          #질문 수정 버튼
     path('question/delete/<int:question_id>/', views.question_delete, name='question_delete'),          #질문 삭제
     #Comment
-    path('comment/create/<int:question_id>/', views.comment_create_question, name='comment_create_question'),
-    path('comment/modify/<int:comment_id>/', views.comment_modify_question, name='comment_modify_question'),
-    path('comment/delete/<int:comment_id>/', views.comment_delete_question, name='comment_delete_question'),
+    # --- Question Comment
+    path('comment/create/question/<int:question_id>/', views.comment_create_question, name='comment_create_question'),
+    path('comment/modify/question/<int:comment_id>/', views.comment_modify_question, name='comment_modify_question'),
+    path('comment/delete/question/<int:comment_id>/', views.comment_delete_question, name='comment_delete_question'),
+    # --- Answer Comment
+    path('comment/create/answer/<int:answer_id>/', views.comment_create_answer, name='comment_create_answer'),
+    path('comment/modify/answer/<int:comment_id>/', views.comment_modify_answer, name='comment_modify_answer'),
+    path('comment/delete/answer/<int:comment_id>/', views.comment_delete_answer, name='comment_delete_answer'),
+    
 ]

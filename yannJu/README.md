@@ -239,8 +239,38 @@
 
     ![부트스트랩 폼 사용](../img/v2_img(4).PNG)
   - `로그인, 답변수정` 등에도 동일하게 *적용*
-- ### 댓글기능 추가`(V0.0.2-)`
-  - 
+- ### 게시글 댓글기능 추가`(V0.0.2-)`
+  - `DB`에 댓글(*Comment*) 테이블 추가
+  - **1:N** 방식으로 연결
+  - *[./templates/yannjuApp/question_comment.html)](./templates/yannjuApp/question_comment.html)* 에 **댓글추가** 인터페이스 작성 후 *[./templates/yannjuApp/question_detail.html)](./templates/yannjuApp/question_detail.html)* 에 `include`
+    - 질문에 대한 댓글 `추가, 수정, 삭제`에 대해 모두 정의
+
+    ![질문댓글 추가](../img/v3_img(1).PNG)
+  - *[./yannjuApp/urls.py](./yannjuApp/urls.py)* 에 `추가, 수정, 삭제` 모두 mapping
+  - *[./yannjuApp/views.py](./yannjuApp/views.py)* 에 `추가, 수정, 삭제` 모두 기능 정의
+  - *[./templates/yannjuApp/comment_form.html](./templates/yannjuApp/comment_form.html)* 에 질문에 대한 댓글 **작성** form 생성
+  - 댓글 **추가**
+   
+    ![질문댓글 작성](../img/v3_img(2).PNG)
+    ![질문댓글 결과](../img/v3_img(3).PNG)
+  - 댓글 **수정**
+
+    ![질문댓글 수정](../img/v3_img(4).PNG)
+    ![질문댓글 수정 결과](../img/v3_img(5).PNG)
+  - 댓글 **삭제**
+   
+    ![질문댓글 수정](../img/v3_img(6).PNG)
+    ![질문댓글 수정 결과](../img/v3_img(7).PNG)
+- ### 답변 댓글 기능 추가`(V0.0.3-)`
+  - 질문에 관한 댓글 기능과 **동일**하게 적용
+  - *[./templates/yannjuApp/comment_answer.html](./templates/yannjuApp/comment_answer.html)* 에 답변에 대한 댓글 *인터페이스* 작성
+  - *[./yannjuApp/urls.py](./yannjuApp/urls.py)* 에 `추가, 수정, 삭제` 모두 mapping
+  - *[./yannjuApp/views.py](./yannjuApp/views.py)* 에 `추가, 수정, 삭제` 모두 기능 정의
+  - *[./templates/yannjuApp/comment_form.html](./templates/yannjuApp/comment_form.html)* 의 Form 객체 사용
+  - 결과는 다음과 같음
+    
+    ![답변댓글](../img/v3_img(8).PNG) | ![답변댓글결과](../img/v3_img(9).PNG) 
+    ---| ---|
 ---
 ## 🧨미해결
 → (0223) `NavBar`가 자동으로 닫힘 
