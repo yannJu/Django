@@ -162,11 +162,13 @@
         ]
         ```
     - `Answer` 객체에도 동일하게 적용
-    - 
   - **로그인 계정**만 게시글을 *작성*
 - ### 수정 처리
   - 게시글 **작성자** 만 게시글을 수정
   - 오류처리 -> 범용처리
+  - *[./templates/yannjuApp/question_form.html](./templates/yannjuApp/question_form.html)*, *[./templates/yannjuApp/answer_form.html](./templates/yannjuApp/answer_form.html)* 과 같이 `form` 작성
+  - 이후 각 `Question`, `Answer` 을 불러온 후 `Form` 객체 이용하여 작성
+  -  `save()` 를 이용하여 덮어씌우기
 - ### 삭제 처리 `(V0.0.2-)`
   - 바로 **삭제** 되는 것을 방지 하기 위해 한번 더 묻는 창을 띄움
   - *[./templates/yannjuApp/question_detail.html](./templates/yannjuApp/question_detail.html)* 에 `삭제` 버튼 추가
