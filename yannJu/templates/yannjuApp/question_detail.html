@@ -34,29 +34,45 @@
             <a href ='#' class='delete btn btn-sm btn-danger' data-uri = "{% url 'yannjuName:question_delete' question.id %}">삭제</a>
         </span>
     {% endif %}
-    
-    <!--card 를 이용하여 사진 등 첨부 가능 : ex. yout ube 썸네일-->
-    <div class = "card my-3">
-        <div class = "card-body">
-            <!--white space : 공백, 개행 등등 을 작성한 그대로-->
-            <div class = "card-text" style = "white-space : pre-line;">
-                {{question.content}}
+
+    <!--추천 기능을 위한 grid 적용-->
+    <div class = 'row my-3'>
+        <div class='col-1'>
+            <!--추천 영역-->
+            <div class = 'bg-light text-center p-3 border font-weight-border mb-1'>
+                {{question.voter.count}}                
             </div>
-
-            {% include './comment_question.html' %}
-
-            <!--float와 비슷하게 정렬-->
-            <div class = "d-flex justify-content-end">
-                <!--badge : 사각형으로 둘러쌈-->
-                {% if question.modify_date %}
-                    <div class = "badge badge-light p-2 text-left mx-3">
-                        <div class = 'mb-2' >Modified at</div>  
-                        <div> {{question.modify_date}} </div> 
+            <a href='#' class = 'recommend btn btn-sm btn-secondary btn-block my-1'
+            data-uri="{% url 'yannjuName:vote_question' question.id%}">
+            추천
+            </a>
+        </div>
+        <div class='col-11'>
+            <!--질문 영역-->
+            <!--card 를 이용하여 사진 등 첨부 가능 : ex. yout ube 썸네일-->
+            <div class = "card">
+                <div class = "card-body">
+                    <!--white space : 공백, 개행 등등 을 작성한 그대로-->
+                    <div class = "card-text" style = "white-space : pre-line;">
+                        {{question.content}}
                     </div>
-                {% endif %}
-                <div class = "badge badge-light p-2">
-                    {% comment %} <div class='mb-2'>{{question.auth.username}}</div> {% endcomment %}
-                    <div>{{question.create_date}}</div>
+
+                    {% include './comment_question.html' %}
+
+                    <!--float와 비슷하게 정렬-->
+                    <div class = "d-flex justify-content-end">
+                        <!--badge : 사각형으로 둘러쌈-->
+                        {% if question.modify_date %}
+                            <div class = "badge badge-light p-2 text-left mx-3">
+                                <div class = 'mb-2' >Modified at</div>  
+                                <div> {{question.modify_date}} </div> 
+                            </div>
+                        {% endif %}
+                        <div class = "badge badge-light p-2">
+                            {% comment %} <div class='mb-2'>{{question.auth.username}}</div> {% endcomment %}
+                            <div>{{question.create_date}}</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,8 +109,16 @@
 {% block script %}
 <script>
     $(document).ready(function(){
+        /* Delete */
         $(".delete").on("click", function() {
             if (confirm("정말로 삭제 하시겠습니까?")) {
+                location.href = $(this).data('uri');
+            }
+        });
+        
+        /* Recommend */
+        $(".recommend").on("click", function() {
+            if (confirm("추천하시겠습니까? 👍🏻")) {
                 location.href = $(this).data('uri');
             }
         });
