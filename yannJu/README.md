@@ -325,9 +325,9 @@
   - *[./yannjuApp/views/vote_views.py](./yannjuApp/views/vote_views.py)* 파일을 생성한 후 관련 **기능** 구현 및 `url` 매핑
   - 답변에도 *동일하게* 적용
 
-  ![추천버튼](../img/v3_img(12).png)
+  ![추천버튼](../img/v3_img(12).PNG)
    ![추천버튼 클릭](../img/v3_img(13).png) 
-   ![추천 결과](../img/v3_img(14).png) 
+   ![추천 결과](../img/v3_img(14).PNG) 
    - 자신이 작성한 **질문** 이나 **답변** 에는 추천할 수 없음
     
    ![추천 오류](../img/v3_img(11)_Err.png)
