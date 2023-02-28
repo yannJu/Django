@@ -195,6 +195,7 @@ def comment_modify_question(request, comment_id):
     
 @login_required(login_url='common:login')
 def comment_delete_question(request, comment_id):
+    print("delete")
     comment = get_object_or_404(Comment, pk=comment_id)
     if request.user != comment.auth:
         messages.error(request, '삭제 권한이 없습니다. . 😅')
