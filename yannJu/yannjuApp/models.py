@@ -18,10 +18,10 @@ class Question(models.Model):
     
 class Answer(models.Model):
     # ForeignKey(참조테이블, 참조조건)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name='author_answer')
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     content = models.TextField('답변 내용')
     create_date = models.DateTimeField()
-    auth = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    auth = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='author_answer')
     modify_date = models.DateTimeField(null=True, blank=True)
     
     voter = models.ManyToManyField(User, related_name='voter_answer') 

@@ -24,6 +24,6 @@ urlpatterns = [
     path('comment/modify/answer/<int:comment_id>/', comment_views.comment_modify_answer, name='comment_modify_answer'),
     path('comment/delete/answer/<int:comment_id>/', comment_views.comment_delete_answer, name='comment_delete_answer'),
     # Recommend
-    path('vote/question/<int:question_id>', vote_views.vote_question, name='vote_question'),        #질문글 추천
+    path('vote/question/<int:question_id>/', vote_views.vote_question, name='vote_question'),        #질문글 추천
     path('vote/answer/<int:answer_id>/', vote_views.vote_answer, name='vote_answer'),       #답변글 추천
 ]

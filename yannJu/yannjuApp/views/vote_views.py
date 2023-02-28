@@ -7,7 +7,7 @@ from ..models import Question, Answer
 @login_required(login_url="common:login")
 def vote_question(request, question_id):
     """
-    yannjuApp 추천 등록
+    yannjuApp 질문 추천 등록
     """
     question = get_object_or_404(Question, pk=question_id)
     if (request.user == question.auth):
@@ -19,6 +19,9 @@ def vote_question(request, question_id):
 
 @login_required(login_url='common:login')
 def vote_answer(request, answer_id):
+    """
+    yannjuApp 답변 추천 등록
+    """
     answer = get_object_or_404(Answer, pk=answer_id)
     
     if request.user == answer.auth:

@@ -331,6 +331,17 @@
    - 자신이 작성한 **질문** 이나 **답변** 에는 추천할 수 없음
     
    ![추천 오류](../img/v3_img(11)_Err.png)
+- ### 스크롤 초기화 문제 해결
+  - 답변 *등록, 수정* 등 기능 수행 후에 스크롤이 상단으로 **초기화**
+  - `bookmark` 를 이용하여 기존 스크롤 유지
+
+    ```html
+    <!--./templates/yannjuApp/answer_list.html-->
+    <!-- 생략 . .-->
+    {% for answer in question.answer_set.all %}
+    <a name="answer_{{answer.id}}"></a> <!--화면에는 안보임-->  
+    <!-- 생략 . . -->
+    ```
 
 ---
 ## 🧨미해결
