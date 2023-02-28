@@ -162,11 +162,13 @@
         ]
         ```
     - `Answer` 객체에도 동일하게 적용
-    - 
   - **로그인 계정**만 게시글을 *작성*
 - ### 수정 처리
   - 게시글 **작성자** 만 게시글을 수정
   - 오류처리 -> 범용처리
+  - *[./templates/yannjuApp/question_form.html](./templates/yannjuApp/question_form.html)*, *[./templates/yannjuApp/answer_form.html](./templates/yannjuApp/answer_form.html)* 과 같이 `form` 작성
+  - 이후 각 `Question`, `Answer` 을 불러온 후 `Form` 객체 이용하여 작성
+  -  `save()` 를 이용하여 덮어씌우기
 - ### 삭제 처리 `(V0.0.2-)`
   - 바로 **삭제** 되는 것을 방지 하기 위해 한번 더 묻는 창을 띄움
   - *[./templates/yannjuApp/question_detail.html](./templates/yannjuApp/question_detail.html)* 에 `삭제` 버튼 추가
@@ -276,8 +278,62 @@
     - 기존 `views.py`는 전체 주석으로 남겨두었음
      
     ![dir 사진](../img/v3_img(10).PNG) 
+  - *[./yannjuApp/urls.py](./yannjuApp/urls.py)* 에서도 각 Views 파일들을 `import` 하여 적용
+  - *[./config/urls.py](./config/urls.py)* 에 기존 `index` 인터페이스 View 변경
+- ### 추천 기능 추가하기
+  - 질문 및 답변 **여러개** 에 대해 **다수** 가 관계를 맺을 수 있음 : **다대다(N:M)관계**
+  - 관계 여부를 각 테이블에 넣을 수 없기 때문에 `Question`-`User` 사이의 관계를 나타내는 테이블 추가
+  - `ManyToManyField()` : 다대다 관계를 위해 사용 , 이때 `User`모델은 직접 수정을 할 수 없기 때문에 `Question`모델에 작성
+    - 만약 두 모델에 대하여 수정이 **가능** 한경우 둘 중 한곳에만 작성해도 자연스럽게 *연결* 됨
+  - *[./yannjuApp/models.py](./yannjuApp/models.py)* 에서 `Question`, `Answer`에 **voter** 라는 변수를 할당하고 `auth` 에 **related_name** 추가
+
+    ```python
+    # ./yannjuApp/models.py
+    #<생략 . . . >
+    # Create your models here.
+    class Question(models.Model):
+        # 파스칼 표기법에 의한 클래스 임을 알 수 있다.
+        subject = models.CharField('제목', max_length=200)
+        content = models.TextField('내용', help_text='비방, 욕설 및 도배글은 삭제될 수 있습니다- (/▽＼)')
+        create_date =  models.DateTimeField('날짜')
+        auth = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='author_question') #에 의해 `question_set`이라는 관계매니저가 생겼었음
+        modify_date = models.DateTimeField(null=True, blank=True)
+        
+        # User : 참조, `question_set` 이라는 관계매니저가 다시 생김, auth와 충돌 / 따라서 related_name 을 통해 해결
+        voter = models.ManyToManyField(User, related_name='voter_question') 
+        
+        def __str__(self):
+            return self.subject
+    #<생략 . . . >
+    ```
+  - `Grid`를 이용하여 **추천** 인터페이스 적용
+    
+    ```html
+    <!--./yannjuApp/question_detail.html-->
+    <!--생략..-->
+    <!--추천 기능을 위한 grid 적용-->
+    <div class = 'row my-3'>
+        <div class='col-1'>
+            <!--추천 영역-->
+        </div>
+        <div class='col-11'>
+            <!--질문 영역-->
+    <!--생략..-->
+    </div>
+    ```
+  - `delete` 기능과 유사하게 JS 를 이용하여 작성 → 추천 유무를 *질문*
+  - *[./yannjuApp/views/vote_views.py](./yannjuApp/views/vote_views.py)* 파일을 생성한 후 관련 **기능** 구현 및 `url` 매핑
+  - 답변에도 *동일하게* 적용
+
+  ![추천버튼](../img/v3_img(12).png)
+   ![추천버튼 클릭](../img/v3_img(13).png) 
+   ![추천 결과](../img/v3_img(14).png) 
+   - 자신이 작성한 **질문** 이나 **답변** 에는 추천할 수 없음
+    
+   ![추천 오류](../img/v3_img(11)_Err.png)
+
 ---
 ## 🧨미해결
 → (0223) `NavBar`가 자동으로 닫힘 
 
-~ → (0224) 로그인 창에서 `로그인` 버튼이 기능을 안함 ~ **[해결]**
+~~→ (0224) 로그인 창에서 `로그인` 버튼이 기능을 안함~~ **[해결]**
