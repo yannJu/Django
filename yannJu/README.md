@@ -258,7 +258,7 @@
     ![질문댓글 수정](../img/v3_img(4).PNG)
     ![질문댓글 수정 결과](../img/v3_img(5).PNG)
   - 댓글 **삭제**
-   
+  
     ![질문댓글 삭제](../img/v3_img(6).PNG)
     ![질문댓글 삭제 결과](../img/v3_img(7).PNG)
 - ### 답변 댓글 기능 추가`(V0.0.3-)`
@@ -271,6 +271,11 @@
     
     ![답변댓글](../img/v3_img(8).PNG) | ![답변댓글결과](../img/v3_img(9).PNG) 
     ---| ---|
+- ### *[Views.py](./yannjuApp/views.py)* 분리하기
+  - *[base_views.py](./yannjuApp/views/base_views.py)*, *[answer_views.py](./yannjuApp/views/answer_views.py)*, *[question_views.py](./yannjuApp/views/question_views.py)*, *[comment_views.py](./yannjuApp/views/comment_views.py)* 로 view를 나누어줌
+    - 기존 `views.py`는 전체 주석으로 남겨두었음
+     
+    ![dir 사진](../img/v3_img(10).PNG) 
 ---
 ## 🧨미해결
 → (0223) `NavBar`가 자동으로 닫힘 
