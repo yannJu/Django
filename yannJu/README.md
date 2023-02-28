@@ -259,8 +259,8 @@
     ![질문댓글 수정 결과](../img/v3_img(5).PNG)
   - 댓글 **삭제**
    
-    ![질문댓글 수정](../img/v3_img(6).PNG)
-    ![질문댓글 수정 결과](../img/v3_img(7).PNG)
+    ![질문댓글 삭제](../img/v3_img(6).PNG)
+    ![질문댓글 삭제 결과](../img/v3_img(7).PNG)
 - ### 답변 댓글 기능 추가`(V0.0.3-)`
   - 질문에 관한 댓글 기능과 **동일**하게 적용
   - *[./templates/yannjuApp/comment_answer.html](./templates/yannjuApp/comment_answer.html)* 에 답변에 대한 댓글 *인터페이스* 작성
