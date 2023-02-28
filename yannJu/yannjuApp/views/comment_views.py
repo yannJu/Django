@@ -111,7 +111,7 @@ def comment_modify_answer(request, comment_id):
             comment.modify_date = timezone.now()
             comment.save()
             
-            url = resolve_url('yannjuName:detail', question_id = comment.question.id)
+            url = resolve_url('yannjuName:detail', question_id = comment.answer.question.id)
             return redirect(f'{url}#comment_{comment.id}')
     else:
         form = CommentForm(instance=comment)
@@ -131,5 +131,5 @@ def comment_delete_answer(request, comment_id):
     else:
         comment.delete()
 
-    url = resolve_url('yannjuName:detail', question_id = comment.question.id)
+    url = resolve_url('yannjuName:detail', question_id = comment.answer.question.id)
     return redirect(url)

@@ -342,6 +342,8 @@
     <a name="answer_{{answer.id}}"></a> <!--화면에는 안보임-->  
     <!-- 생략 . . -->
     ```
+  - *[./yannjuApp/views/comment_views.py](./yannjuApp/views/comment_views.py)* 의 모든 함수에도 동일하게 적용
+- `등록, 삭제, 수정` 기능 수행시 **bookmark** 위치로 스크롤
 
 ---
 ## 🧨미해결

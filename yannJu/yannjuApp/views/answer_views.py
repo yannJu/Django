@@ -67,4 +67,4 @@ def answer_delete(request, answer_id):
     answer.delete()
     
     url = resolve_url("yannjuName:detail", question_id=answer.question.id)
-    return redirect(f'{url}#answer_{answer.id}')
+    return redirect(url)
