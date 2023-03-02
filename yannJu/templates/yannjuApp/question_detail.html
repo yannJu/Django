@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load yannnju_filter %} <!--markdown 사용자 필터 정의-->
 
 {% block content %}
 
@@ -53,8 +54,10 @@
             <div class = "card">
                 <div class = "card-body">
                     <!--white space : 공백, 개행 등등 을 작성한 그대로-->
-                    <div class = "card-text" style = "white-space : pre-line;">
-                        {{question.content}}
+                    {% comment %} <div class = "card-text" style = "white-space : pre-line;"> {% endcomment %}
+                    <div class = "card-text"> 
+                        {{question.content|mark}}
+                        {% comment %} {{question.content}} {% endcomment %}
                     </div>
 
                     {% include './comment_question.html' %}

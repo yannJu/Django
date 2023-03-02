@@ -1,3 +1,5 @@
+{% load yannnju_filter %}
+
 <h5 class = "border-bottom my-3 py-2">
     <i class="fa-solid fa-terminal"></i>
     {{question.answer_set.count}}개의 답변이 있습니다. ≡(▔﹏▔)≡
@@ -20,8 +22,9 @@
         <div class='col-11'>
             <div class = "card">
                 <div class = "card-body">
-                    <div class = "card-text" style = "white-space : pre-line;">
-                        {{answer.content}}
+                    {% comment %} <div class = "card-text" style = "white-space : pre-line;"> {% endcomment %}
+                    <div class = "card-text">
+                        {{answer.content|mark}}
                     </div>
                     {% include './comment_answer.html' %}
                     <div class = "d-flex justify-content-end">
