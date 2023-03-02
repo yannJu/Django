@@ -421,7 +421,36 @@
          
         ![검색기능](../img/v4_img(4).png) 
 - ### 게시글 정렬 기능 `(V0.0.4-)   `
-  - 
+  - *[./templates/yannjuApp/question_list.html](./templates/yannjuApp/question_list.html)* 의 검색과 같은 라인에 **정렬기준** 드롭다운 추가
+  - `searchForm` 에 `hidden` 타입으로 정렬 속성을 추가 → **so** 라는 이름으로 id 추가
+  - `Script` 를 작성 
+    - `select` 태그가 **change** 될 때마다 동작
+  - *[./yannjuApp/views/base_views.py](./yannjuApp/views/base_views.py)* 에서 `db` 를 이용하여 정렬
+
+    ```python
+    #./yannjuApp/views/base_views.py
+    # 생략. . 
+    # 조회 (정렬)
+      # question_list = Question.objects.order_by('-create_date')
+
+      #정렬 처리
+      # 1) 집계처리, 2) 동적으로 추가되는 속성 (ex 연봉계산)
+      # annotate : 동적으로 속성 정의/ ex. annotate(numvoter = Count('voter')) 이면, 각 voter 카운트 후 numvoter 반환
+      if so == 'recommend':
+          question_list = Question.objects.annotate(
+              num_voter = Count('voter')).order_by('-num_voter', '-create_date')
+      elif so == 'popular':
+          question_list = Question.objects.annotate(
+              num_answer = Count('answer')).order_by('-num_answer', '-create_date')
+      elif so == 'recent':
+          question_list = Question.objects.order_by('-create_date')
+    # 생략. . 
+    ```
+    - `annotate` 를 통해 동적 속성을 반환
+    - 동적 속성을 이용하여 `정렬`
+
+  ![추천순](../img/v4_img(5).png) |![인기순](../img/v4_img(6).png)
+  ---|---|
 ---
 ## 🧨미해결
 → (0223) `NavBar`가 자동으로 닫힘 
