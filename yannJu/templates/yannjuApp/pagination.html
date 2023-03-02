@@ -7,12 +7,14 @@
     {% if question_list.has_previous %}
         <!--처음으로 버튼-->
         <li class = "page-item">
-            <a class = "page-link" href = "?page=1">
+            {% comment %} <a class = "page-link" href = "?page=1"> {% endcomment %}
+            <a class = "page-link" href = "#" data-page = '1'>
                 <i class="fa-solid fa-angles-left"></i>    
             </a>
         </li>
         <li class="page-item">
-            <a class="page-link" href="?page={{question_list.previous_page_number}}">
+            {% comment %} <a class="page-link" href="?page={{question_list.previous_page_number}}"> {% endcomment %}
+            <a class="page-link" href="#" data-page = '{{question_list.previous_page_number}}'>
                 <i class="fa-solid fa-angle-left"></i>
             </a>
         </li>
@@ -32,7 +34,8 @@
                 </li>
             {% else %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{page_number}}">{{page_number}}</a>
+                    {% comment %} <a class="page-link" href="?page={{page_number}}">{{page_number}}</a> {% endcomment %}
+                    <a class="page-link" href="#" data-page = '{{page_number}}'>{{page_number}}</a>
                 </li>
             {% endif %}
         {% endif %}
@@ -40,12 +43,14 @@
     <!--다음페이지-->
     {% if question_list.has_next %}
         <li class="page-item">
-            <a class="page-link" href="?page={{question_list.next_page_number}}">
+            {% comment %} <a class="page-link" href="?page={{question_list.next_page_number}}"> {% endcomment %}
+            <a class="page-link" href="#" data-page = '{{question_list.next_page_number}}'>
                 <i class="fa-solid fa-angle-right"></i></a>
         </li>
         <!--끝으로 버튼-->
         <li class = "page-item">
-            <a class = "page-link" href = "?page={{question_list.paginator.num_pages}}">
+            {% comment %} <a class = "page-link" href = "?page={{question_list.paginator.num_pages}}"> {% endcomment %}
+            <a class = "page-link" href = "#" data-page = '{{question_list.paginator.num_pages}}'>
                 <i class="fa-solid fa-angles-right"></i>
             </a>
         </li>

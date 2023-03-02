@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
-
-
+{% load static %}
 
 {% block content %}
     <div class = "container">
@@ -13,6 +12,25 @@
             {% csrf_token %}
             {%bootstrap_form form%}
             <!--{{form.as_p}} as_p : <p>태그로 묶어서 입력을 보내겠다는 의미-->
+                
+            <!--Post_form.html-->
+            {% block style %}
+            <link rel = 'stylesheet' href = " {% static 'summernote-bs4.min.css' %}">
+            {% endblock style %}
+
+            {% block script %}
+            <script src = "{% static 'summernote-bs4.min.js' %}"></script>
+            <script src = "{% static 'summernote-ko-KR.min.js' %}"></script>
+
+            <script>
+                $(function() {
+                    //SummberNote
+                    $('#id_content').summernote({
+                        height:300
+                    })
+                })
+            </script>
+            {% endblock script %}
             
             <!--Err Start>
             {% if form.errors %}

@@ -107,6 +107,12 @@
         type="submit" value="답변등록" class = 'btn btn-secondary'>
     </form>    
 </div>
+
+<div>
+    {% autoescape off %}
+        {{ object.content }}
+    {% endautoescape %} 
+</div>
 {% endblock content %}
 
 {% block script %}

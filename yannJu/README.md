@@ -362,8 +362,66 @@
         <!-- 생략 . . -->
         ```
       - 기존 `style='white-space : pre-line'` 대신 `|mark` 를 통해 마크다운 기능 불러오기
-    - 그외 `simple tag` 를 통해 간단하게 *불러오기* 가능 **(직접 찾아보자)**
 
+    ![마크다운 테스트](../img/v4_img(1).png)
+      - 위와 같이 마크다운(`+, -, *`)을 이용한 것이 보여짐
+  - 그외 `simple tag` 를 통해 간단하게 *불러오기* 가능 **(직접 찾아보자)**
+- ### Summernote 추가하기 `(V0.0.4-)`
+  - `Summernote`를 위해 필요한 `css, js, kr` 파일 다운
+  - *[static](./static/)*  폴더에 다운받은 **파일** 들 옮겨놓음
+  - *[base.html](./base.templates/base.html)* 의 `<body>` 부분에 `popper` 태그 추가
+
+    ```html
+    <!--./base.templates/base.html-->
+    <!--생략..-->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src = "{% static 'bootstrap.min.js' %}"></script>
+    <!--생략..-->
+    ```
+  - 기존에 게시글을 작성하던 *[./templates/yannjuApp/question_form.html](./templates/yannjuApp/question_form.html)* 에 `Summernote` 관련 코드 작성 **[16~33 줄]**
+
+    ![summernote 추가](../img/v4_img(2).png)
+- ### 검색기능 추가 `(V0.0.4-)`
+    - 검색을 위해 기존 `Pagination`이 이루어졌던 *[./yannjuApp/views/base_views.py](./yannjuApp/views/base_views.py)* > Index() 부분에 `kw` 라는 변수를 생성
+      - `kw` 라는 변수를 통해 `GET` 메소드로 검색
+
+        ```python
+        #./yannjuApp/views/base_views.py
+        #생략 . .
+        kw = request.GET.get('kw', '') #검색 설정
+        # 조회
+        question_list = Question.objects.order_by('-create_date')
+        
+        # 검색이 이루어진다면
+        if kw:
+            question_list = question_list.filter(
+                Q(subject__icontains = kw) | #제목 검색
+                Q(content__icontains = kw) | #내용 검색
+                Q(auth__username__contains=kw) | #질문 글쓴이 검색
+                Q(answer__auth__username__icontains=kw)  #답글 검색
+            ).distinct()
+        #생략 . .
+        ```
+      - 이후 `context 변수` 에 `kw`를 추가하여 *mapping*
+    - *[./templates/yannjuApp/question_list.html](./templates/yannjuApp/question_list.html)* 에 검색창 추가
+      - 이때 `form` 을 사용하지 않음 
+      - 왜냐하면 `pagination` 과 `검색` 두 경우에 모두 `page` 와 `kw` 를 참조해야하기 때문
+    - **hidden form** 을 이용하여 `Java Script` 를 통해 적용
+      - *[./templates/yannjuApp/question_list.html](./templates/yannjuApp/question_list.html)* 하단에 `form` 태그 추가
+      - *[./templates/yannjuApp/pagination.html](./templates/yannjuApp/pagination.html)* 의 각 페이지 별 `href` 는 **#** 으로, script 처리를 위해 `data-page` 속성을 추가
+       1. 페이지 버튼을 누른 경우 → 검색어는 **유지**/페이지 **번호 적용**
+       2. 검색어를 입력한 경우 → 검색어 **적용**/페이지 번호 **1**
+    - *[./templates/yannjuApp/question_list.html](./templates/yannjuApp/question_list.html)* 하단에 `script` 블록 추가
+      - `Script` 기능을 작성
+        1. 페이지 버튼 클릭
+         
+        ![페이지네이션](../img/v4_img(3).png) 
+        2. 검색 버튼 클릭
+         
+        ![검색기능](../img/v4_img(4).png) 
+- ### 게시글 정렬 기능 `(V0.0.4-)   `
+  - 
 ---
 ## 🧨미해결
 → (0223) `NavBar`가 자동으로 닫힘 

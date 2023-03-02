@@ -11,7 +11,6 @@
         <link rel = "stylesheet" type = "text/css" href = "{% static 'bootstrap.min.css' %}">
         <link rel = "stylesheet" type = "text/css" href = "{% static 'style.css' %}">
         {% block style %}{% endblock style %}
-
     </head>
     <body>
         <!--navbar.html을 include 하여 불러옴-->
@@ -23,7 +22,9 @@
         </div>
         
         <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src = "{% static 'bootstrap.min.js' %}"></script>
+        
         <!-- Delete -->
         {% block script %}{% endblock script %}
     </body>
